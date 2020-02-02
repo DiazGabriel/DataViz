@@ -26,36 +26,31 @@ polyline{
 }
 
 </style>
+
 <body>
-<button class="randomize">randomize</button>
+
+<h1>Répartition du nombre de client possédant une deuxième voiture</h1>
+
+<form>	
+	<select name="DropDownList">
+		<option selected>Age</option>
+		<option>Sexe</option>
+		<option>Salaire</option>
+		<option>Situation familiale</option>
+		<option>Nombre d'enfant</option>
+	</select>
+</form>
+
 
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
 
-d3.csv("Clients_0.csv",  function(data) {
-   
-    
-	// Pré-traitement test sur l'âge
 
-	var age10_30 = 0;
-	var age30_50 = 0;
-	var age50_99 = 0;
-
-	data.forEach(function(d) {
-    	if (d.age >= 10 && d.age < 30 && d.seconde_voiture=="true") {
-			age10_30 += 1;
-		} if (d.age >= 30 && d.age < 50 && d.seconde_voiture=="true") {
-			age30_50 += 1;
-		} if (d.age >= 50 && d.seconde_voiture=="true") {
-			age50_99 += 1;
-		} 
-  	});
-	
-	var values = [age10_30, age30_50, age50_99];
-	console.log(values);
+d3.csv("Clients.csv",  function(error, data) {
+  if (error) throw error;
 
 
-    // Création du conteneur 
+	// Création du conteneur 
 
 	var svg = d3.select("body")
 		.append("svg")
@@ -90,26 +85,7 @@ d3.csv("Clients_0.csv",  function(data) {
 
 	var key = function(d){ return d.data.label; };
 
-
-	// Définition des labels    
-
-	var color = d3.scale.ordinal()
-		.domain(["age entre 10 et 30", "30 et 50", "50 et +"])  
-		.range(["#98abc5", "#8a89a6", "#7b6888"]);
-
-	function Data (){
-		var labels = color.domain(); 
-		return labels.map(function(label){
-			return { label: label, value: values[0] }
-		});
-	}
-
-	change(Data());
-
-	d3.select(".randomize")
-		.on("click", function(){
-			change(Data());
-		});
+	var color = d3.scale.ordinal();
 
 
 	// Découpage du graphique en fonction des valeurs de chaque label
@@ -205,6 +181,216 @@ d3.csv("Clients_0.csv",  function(data) {
 		polyline.exit()
 			.remove();
 	};
+   
+
+	function AgeSelector() {
+	// Pré-traitement test sur l'âge
+
+		var age10_30 = 0;
+		var age30_50 = 0;
+		var age50_70 = 0;
+		var age70_99 = 0;
+ 
+		data.forEach(function(d) {
+    		if (d.age >= 10 && d.age < 30 && d.seconde_voiture == 'true') {
+				age10_30 += 1;
+			} if (d.age >= 30 && d.age < 50 && d.seconde_voiture == 'true') {
+				age30_50 += 1;
+			} if (d.age >= 50 && d.age <70 && d.seconde_voiture == 'true') {
+				age50_70 += 1;
+			} if (d.age >= 70) {
+				age70_99 += 1;
+			} 
+  		});
+	
+		values = [age10_30, age30_50, age50_70, age70_99];
+		console.log(variable);
+		console.log(values);
+
+		// Définition des labels    
+		color = d3.scale.ordinal()
+			.domain(["10-30 ans", "30-50 ans", "50-70 ans", "70 ans et + "])  
+			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
+
+	}
+
+	function SexeSelector() {
+	// Pré-traitement test sur le sexe
+
+		var homme = 0;
+		var femme = 0;
+ 
+		data.forEach(function(d) {
+   			if (d.sexe == "M" && d.seconde_voiture == 'true') {
+				homme += 1;
+			} if (d.sexe == "F" && d.seconde_voiture == 'true') {
+				femme += 1;
+			} 
+		});
+	
+		values = [homme, femme];
+		console.log(variable);
+		console.log(values);
+
+		// Définition des labels    
+		color = d3.scale.ordinal()
+			.domain(["Homme", "Femme"])  
+			.range(["#98abc5", "#8a89a6"]);
+	}
+
+	function SalaireSelector() {
+	// Pré-traitement test sur le salaire
+
+	// On a accès uniquement au taux d'endettement du client 
+	// Pour calculer le salaire on part du postulat que taux d'endettemment = 0.33% du salaire (loi francaise)
+
+		var salaire0_1500 = 0;
+		var salaire1500_2500 = 0;
+		var salaire2500_4000 = 0;
+		var salaire4000_etPlus = 0;
+		var salaire = 0;
+
+		data.forEach(function(d) {
+
+			salaire = d.taux/0.33	
+
+   			if (salaire >= 0 && salaire < 1500 && d.seconde_voiture == 'true') {
+				salaire0_1500 += 1;
+			} if (salaire >= 1500 && salaire < 2500 && d.seconde_voiture == 'true') {
+				salaire1500_2500 += 1;
+			} if (salaire >= 2500 && salaire < 4000 && d.seconde_voiture == 'true') {
+				salaire2500_4000 += 1;
+			} if (salaire >= 2500 && salaire < 4000 && d.seconde_voiture == 'true') {
+				salaire2500_4000 += 1;
+			} if (salaire >= 4000 && d.seconde_voiture == 'true') {
+				salaire4000_etPlus += 1;
+			} 
+		});
+	
+		values = [salaire0_1500, salaire1500_2500, salaire2500_4000, salaire4000_etPlus];
+		console.log(variable);
+		console.log(values);
+
+		// Définition des labels    
+		color = d3.scale.ordinal()
+			.domain(["0€-1500€", "1500€-2500€ ", "2500€-4000€", "4000€ et +"])  
+			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
+	}
+
+    function FamilleSelector() {
+   	// Pré-traitement test sur la situation familliale
+	// On part du principe que Celibataire et seul sont identique
+
+		var enCouple = 0;
+		var celibataire = 0;
+		var marie = 0;
+
+		data.forEach(function(d) {
+	 		if (d.situationFamiliale == "En Couple" && d.seconde_voiture == 'true') {
+				enCouple += 1;
+			} if (d.situationFamiliale == "Célibataire" && d.seconde_voiture == 'true') {
+				celibataire += 1;
+			} if (d.situationFamiliale == "Seule" && d.seconde_voiture == 'true') {
+				celibataire += 1;
+			} if (d.situationFamiliale == "Marié(e)" && d.seconde_voiture == 'true') {
+				marie += 1;
+			}
+		});
+	
+		values = [enCouple, celibataire, marie];
+		console.log(variable);
+		console.log(values);
+
+		// Définition des labels    
+		color = d3.scale.ordinal()
+			.domain(["Celibataire", "En couple", "Marié"])  
+			.range(["#98abc5", "#8a89a6", "#7b6888"]);
+
+    }
+
+    function EnfantSelector() {
+   	// Pré-traitement test sur la situation familliale
+	// On part du principe que Celibataire et seul sont identique
+
+		var enfant1 = 0;
+		var enfant2 = 0;
+		var enfant3 = 0;
+		var enfant4 = 0;
+
+		data.forEach(function(d) {
+			if (d.nbEnfantsAcharge == 1 && d.seconde_voiture == 'true') {
+				enfant1 += 1;
+			} if (d.nbEnfantsAcharge == 2 && d.seconde_voiture == 'true') {
+				enfant2 += 1;
+			} if (d.nbEnfantsAcharge == 3 && d.seconde_voiture == 'true') {
+				enfant3 += 1;
+			} if (d.nbEnfantsAcharge == 4 && d.seconde_voiture == 'true') {
+				enfant4 += 1;
+			} 
+  		});
+	
+		values = [enfant1, enfant2, enfant3, enfant4];
+		console.log(variable);
+		console.log(values);	
+
+		// Définition des labels    
+		color = d3.scale.ordinal()
+			.domain(["1 enfant", "2 enfant", "3 enfant", "4 enfant"])  
+			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
+
+    }
+
+    function Data() {
+		var labels = color.domain(); 
+		return labels.map(function(label){
+			return { label: label, value: values[0] }
+		});
+	}
+
+
+    // Par défaut c'est l'age qui est chargé histoire de ne pas arrivé sur une page blanche
+
+   var variable = "Age";
+   var values = [];
+   AgeSelector();
+   change(Data());
+
+
+	// On récupére la valeur séléctionner dans le menu déroulant 
+	// En fonction on met à jour le pie chart
+
+	document.querySelector("select").addEventListener("change", function (){
+		
+		variable = this.value;
+
+		// Celon la valeur séléctionner on calcul les différentes tranche du Pie chart
+
+		if(variable=="Age") {
+			AgeSelector();
+		}
+		
+
+		if(variable=="Sexe") {
+			SexeSelector();
+		}
+
+		if(variable=="Salaire") {
+			SalaireSelector();
+		}
+
+		if(variable=="Situation familiale") {
+			FamilleSelector();
+		}
+
+		if(variable=="Nombre d'enfant") {
+			EnfantSelector();
+		}
+
+		change(Data());
+
+	}, false);
+
+           
 });
 
 </script>
