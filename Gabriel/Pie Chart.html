@@ -25,6 +25,47 @@ polyline{
 	fill: none;
 }
 
+.select-style {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    width: 200px;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #fff;
+    background: #fff;
+    position: relative;
+}
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.select-style:after {
+    top: 50%;
+    left: 85%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 5px;
+    margin-top: -2px;
+    z-index: 100;
+}
+.select-style select:focus {
+    outline: none;
+}
+
 </style>
 
 <body>
@@ -32,13 +73,15 @@ polyline{
 <h1>Répartition du nombre de client possédant une deuxième voiture</h1>
 
 <form>	
-	<select name="DropDownList">
-		<option selected>Age</option>
-		<option>Sexe</option>
-		<option>Salaire</option>
-		<option>Situation familiale</option>
-		<option>Nombre d'enfant</option>
-	</select>
+	<div class="select-style">
+		<select name="DropDownList">
+			<option selected>Age</option>
+			<option>Sexe</option>
+			<option>Salaire</option>
+			<option>Situation familiale</option>
+			<option>Nombre d'enfant</option>
+		</select>
+	</div>
 </form>
 
 
@@ -203,13 +246,20 @@ d3.csv("Clients.csv",  function(error, data) {
 			} 
   		});
 	
+		// Calcul des pourcentage 
+		var total = age10_30 + age30_50 + age50_70 + age70_99;
+		var age10_30_pour = Math.round((age10_30/total)*100);
+		var age30_50_pour = Math.round((age30_50/total)*100);
+		var age50_70_pour = Math.round((age50_70/total)*100);
+		var age70_99_pour = Math.round((age70_99/total)*100);
+
 		values = [age10_30, age30_50, age50_70, age70_99];
 		console.log(variable);
 		console.log(values);
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
-			.domain(["10-30 ans", "30-50 ans", "50-70 ans", "70 ans et + "])  
+			.domain(["10-30 ans (" +age10_30_pour+"%)", "30-50 ans (" +age30_50_pour+"%)", "50-70 ans (" +age50_70_pour+"%)", "70 ans et + (" +age70_99_pour+"%)"])  
 			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
 
 	}
@@ -227,6 +277,11 @@ d3.csv("Clients.csv",  function(error, data) {
 				femme += 1;
 			} 
 		});
+
+		// Calcul des pourcentage 
+		var total = homme + femme;
+		var homme_pour = Math.round((homme/total)*100);
+		var femme_pour = Math.round((femme/total)*100);
 	
 		values = [homme, femme];
 		console.log(variable);
@@ -234,7 +289,7 @@ d3.csv("Clients.csv",  function(error, data) {
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
-			.domain(["Homme", "Femme"])  
+			.domain(["Homme (" +homme_pour+"%)", "Femme (" +femme_pour+"%)"])  
 			.range(["#98abc5", "#8a89a6"]);
 	}
 
@@ -266,6 +321,13 @@ d3.csv("Clients.csv",  function(error, data) {
 				salaire4000_etPlus += 1;
 			} 
 		});
+
+		// Calcul des pourcentage 
+		var total = salaire0_1500 + salaire1500_2500 + salaire2500_4000 + salaire4000_etPlus;
+		var salaire0_1500_pour = Math.round((salaire0_1500/total)*100);
+		var salaire1500_2500_pour = Math.round((salaire1500_2500/total)*100);
+		var salaire2500_4000_pour = Math.round((salaire2500_4000/total)*100);
+		var salaire4000_etPlus_pour = Math.round((salaire4000_etPlus/total)*100);
 	
 		values = [salaire0_1500, salaire1500_2500, salaire2500_4000, salaire4000_etPlus];
 		console.log(variable);
@@ -273,7 +335,7 @@ d3.csv("Clients.csv",  function(error, data) {
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
-			.domain(["0€-1500€", "1500€-2500€ ", "2500€-4000€", "4000€ et +"])  
+			.domain(["0€-1500€ (" +salaire0_1500_pour+"%)", "1500€-2500€ (" +salaire1500_2500_pour+"%)", "2500€-4000€ (" +salaire2500_4000_pour+"%)", "4000€ et + (" +salaire4000_etPlus_pour+"%)"])  
 			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
 	}
 
@@ -282,28 +344,29 @@ d3.csv("Clients.csv",  function(error, data) {
 	// On part du principe que Celibataire et seul sont identique
 
 		var enCouple = 0;
-		var celibataire = 0;
 		var marie = 0;
 
 		data.forEach(function(d) {
+			console.log(d.situationFamiliale);
 	 		if (d.situationFamiliale == "En Couple" && d.seconde_voiture == 'true') {
 				enCouple += 1;
-			} if (d.situationFamiliale == "Célibataire" && d.seconde_voiture == 'true') {
-				celibataire += 1;
-			} if (d.situationFamiliale == "Seule" && d.seconde_voiture == 'true') {
-				celibataire += 1;
-			} if (d.situationFamiliale == "Marié(e)" && d.seconde_voiture == 'true') {
+			} if (d.situationFamiliale == "Marie(e)" && d.seconde_voiture == 'true') {
 				marie += 1;
 			}
 		});
+
+		// Calcul des pourcentage 
+		var total = enCouple + marie;
+		var enCouple_pour = Math.round((enCouple/total)*100);
+		var marie_pour = Math.round((marie/total)*100);
 	
-		values = [enCouple, celibataire, marie];
+		values = [enCouple, marie];	
 		console.log(variable);
 		console.log(values);
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
-			.domain(["Celibataire", "En couple", "Marié"])  
+			.domain(["En couple (" +enCouple_pour+"%)", "Marié (" +marie_pour+"%)"])  
 			.range(["#98abc5", "#8a89a6", "#7b6888"]);
 
     }
@@ -328,6 +391,13 @@ d3.csv("Clients.csv",  function(error, data) {
 				enfant4 += 1;
 			} 
   		});
+
+  		// Calcul des pourcentage 
+		var total = enfant1 + enfant2 + enfant3 + enfant4;
+		var enfant1_pour = Math.round((enfant1/total)*100);
+		var enfant2_pour = Math.round((enfant2/total)*100);
+		var enfant3_pour = Math.round((enfant3/total)*100);
+		var enfant4_pour = Math.round((enfant4/total)*100);
 	
 		values = [enfant1, enfant2, enfant3, enfant4];
 		console.log(variable);
@@ -335,15 +405,21 @@ d3.csv("Clients.csv",  function(error, data) {
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
-			.domain(["1 enfant", "2 enfant", "3 enfant", "4 enfant"])  
+			.domain(["1 enfant (" +enfant1_pour+"%)", "2 enfants (" +enfant2_pour+"%)", "3 enfants (" +enfant3_pour+"%)", "4 enfants (" +enfant4_pour+"%)"])  
 			.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
 
     }
 
     function Data() {
-		var labels = color.domain(); 
+		var labels = color.domain();
+		let i = -1; 
 		return labels.map(function(label){
-			return { label: label, value: values[0] }
+		i++;
+		console.log("values[i] "+values[i])
+		
+			return { label: label, value: values[i] }
+		
+			
 		});
 	}
 
