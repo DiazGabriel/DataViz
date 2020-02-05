@@ -89,7 +89,7 @@ polyline{
 <script>
 
 
-d3.csv("Clients.csv",  function(error, data) {
+d3.csv("C:/Users/diazg/Desktop/Files/Cours/MIAGE/M2/0_Projet_BigData/dataVis/D3test/Client_2voiture.csv",  function(error, data) {
   if (error) throw error;
 
 
@@ -235,11 +235,11 @@ d3.csv("Clients.csv",  function(error, data) {
 		var age70_99 = 0;
  
 		data.forEach(function(d) {
-    		if (d.age >= 10 && d.age < 30 && d.seconde_voiture == 'true') {
+    		if (d.age >= 10 && d.age < 30) {
 				age10_30 += 1;
-			} if (d.age >= 30 && d.age < 50 && d.seconde_voiture == 'true') {
+			} if (d.age >= 30 && d.age < 50) {
 				age30_50 += 1;
-			} if (d.age >= 50 && d.age <70 && d.seconde_voiture == 'true') {
+			} if (d.age >= 50 && d.age <70) {
 				age50_70 += 1;
 			} if (d.age >= 70) {
 				age70_99 += 1;
@@ -254,8 +254,6 @@ d3.csv("Clients.csv",  function(error, data) {
 		var age70_99_pour = Math.round((age70_99/total)*100);
 
 		values = [age10_30, age30_50, age50_70, age70_99];
-		console.log(variable);
-		console.log(values);
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
@@ -271,9 +269,9 @@ d3.csv("Clients.csv",  function(error, data) {
 		var femme = 0;
  
 		data.forEach(function(d) {
-   			if (d.sexe == "M" && d.seconde_voiture == 'true') {
+   			if (d.sexe == "M") {
 				homme += 1;
-			} if (d.sexe == "F" && d.seconde_voiture == 'true') {
+			} if (d.sexe == "F") {
 				femme += 1;
 			} 
 		});
@@ -284,8 +282,6 @@ d3.csv("Clients.csv",  function(error, data) {
 		var femme_pour = Math.round((femme/total)*100);
 	
 		values = [homme, femme];
-		console.log(variable);
-		console.log(values);
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
@@ -309,15 +305,15 @@ d3.csv("Clients.csv",  function(error, data) {
 
 			salaire = d.taux/0.33	
 
-   			if (salaire >= 0 && salaire < 1500 && d.seconde_voiture == 'true') {
+   			if (salaire >= 0 && salaire < 1500) {
 				salaire0_1500 += 1;
-			} if (salaire >= 1500 && salaire < 2500 && d.seconde_voiture == 'true') {
+			} if (salaire >= 1500 && salaire < 2500) {
 				salaire1500_2500 += 1;
-			} if (salaire >= 2500 && salaire < 4000 && d.seconde_voiture == 'true') {
+			} if (salaire >= 2500 && salaire < 4000) {
 				salaire2500_4000 += 1;
-			} if (salaire >= 2500 && salaire < 4000 && d.seconde_voiture == 'true') {
+			} if (salaire >= 2500 && salaire < 4000) {
 				salaire2500_4000 += 1;
-			} if (salaire >= 4000 && d.seconde_voiture == 'true') {
+			} if (salaire >= 4000) {
 				salaire4000_etPlus += 1;
 			} 
 		});
@@ -330,8 +326,6 @@ d3.csv("Clients.csv",  function(error, data) {
 		var salaire4000_etPlus_pour = Math.round((salaire4000_etPlus/total)*100);
 	
 		values = [salaire0_1500, salaire1500_2500, salaire2500_4000, salaire4000_etPlus];
-		console.log(variable);
-		console.log(values);
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
@@ -347,10 +341,9 @@ d3.csv("Clients.csv",  function(error, data) {
 		var marie = 0;
 
 		data.forEach(function(d) {
-			console.log(d.situationFamiliale);
-	 		if (d.situationFamiliale == "En Couple" && d.seconde_voiture == 'true') {
+	 		if (d.situationFamiliale == "En Couple") {
 				enCouple += 1;
-			} if (d.situationFamiliale == "Marie(e)" && d.seconde_voiture == 'true') {
+			} if (d.situationFamiliale == "Marie(e)") {
 				marie += 1;
 			}
 		});
@@ -361,8 +354,6 @@ d3.csv("Clients.csv",  function(error, data) {
 		var marie_pour = Math.round((marie/total)*100);
 	
 		values = [enCouple, marie];	
-		console.log(variable);
-		console.log(values);
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
@@ -381,13 +372,13 @@ d3.csv("Clients.csv",  function(error, data) {
 		var enfant4 = 0;
 
 		data.forEach(function(d) {
-			if (d.nbEnfantsAcharge == 1 && d.seconde_voiture == 'true') {
+			if (d.nbEnfantsAcharge == 1) {
 				enfant1 += 1;
-			} if (d.nbEnfantsAcharge == 2 && d.seconde_voiture == 'true') {
+			} if (d.nbEnfantsAcharge == 2) {
 				enfant2 += 1;
-			} if (d.nbEnfantsAcharge == 3 && d.seconde_voiture == 'true') {
+			} if (d.nbEnfantsAcharge == 3) {
 				enfant3 += 1;
-			} if (d.nbEnfantsAcharge == 4 && d.seconde_voiture == 'true') {
+			} if (d.nbEnfantsAcharge == 4) {
 				enfant4 += 1;
 			} 
   		});
@@ -400,8 +391,6 @@ d3.csv("Clients.csv",  function(error, data) {
 		var enfant4_pour = Math.round((enfant4/total)*100);
 	
 		values = [enfant1, enfant2, enfant3, enfant4];
-		console.log(variable);
-		console.log(values);	
 
 		// Définition des labels    
 		color = d3.scale.ordinal()
@@ -414,12 +403,8 @@ d3.csv("Clients.csv",  function(error, data) {
 		var labels = color.domain();
 		let i = -1; 
 		return labels.map(function(label){
-		i++;
-		console.log("values[i] "+values[i])
-		
-			return { label: label, value: values[i] }
-		
-			
+			i++;
+			return { label: label, value: values[i] }			
 		});
 	}
 
