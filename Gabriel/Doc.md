@@ -11,6 +11,7 @@ je n'ai traiter que les lignes 2eme voiture = true
 
 ### Script R :  
 
+```R
 produit <- read.csv("C:/Users/diazg/Desktop/Files/Cours/MIAGE/M2/0_Projet_BigData/dataVis/D3test/Clients.csv", header = TRUE, sep = ";", dec = ".")
 
 install.packages(sqldf)
@@ -25,7 +26,7 @@ produitTrue <- subset(produit, seconde_voiture=='true')
 sqldf("select * from produitTrue where seconde_voiture = 'false'")
 
 write.csv(produitTrue, "C:/Users/diazg/Desktop/Files/Cours/MIAGE/M2/0_Projet_BigData/dataVis/D3test/Client_2voiture.csv")
-
+```
 ### Fin script R
 
 Deux manières de traiter :
