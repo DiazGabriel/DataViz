@@ -1,4 +1,4 @@
-### Méthodo utilisé 
+# Méthodo utilisé 
 
 ## Pré traitement du CSV
 
@@ -9,7 +9,7 @@ je n'ai traiter que les lignes 2eme voiture = true
 1. J'ai charger le fichier sur R pour enlever les lignes 2eme voiture = false
 	accèle les lecture du fichier car moins de ligne à traiter (25 000 lecture au lieu de 200 000)
 
-# Script R :  
+### Script R :  
 
 produit <- read.csv("C:/Users/diazg/Desktop/Files/Cours/MIAGE/M2/0_Projet_BigData/dataVis/D3test/Clients.csv", header = TRUE, sep = ";", dec = ".")
 
@@ -26,7 +26,7 @@ sqldf("select * from produitTrue where seconde_voiture = 'false'")
 
 write.csv(produitTrue, "C:/Users/diazg/Desktop/Files/Cours/MIAGE/M2/0_Projet_BigData/dataVis/D3test/Client_2voiture.csv")
 
-# Fin script R
+### Fin script R
 
 Deux manières de traiter :
   - Librairie SQLDF : permet d'utiliser SQL
