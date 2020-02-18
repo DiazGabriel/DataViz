@@ -1,0 +1,31 @@
+body {
+    font-family: 'Century Gothic';
+    text-align: center;
+    color: #2D3036;
+}
+
+hr {
+    width: 75%;
+    background-color: #2D3036;
+}
+
+#navbar, #footer {
+    background-color: #2D3036;
+}
+
+li {
+    display: inline;
+    padding-right: 25px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+    a:hover {
+        color: #848C8E;
+    }
+
+footer {
+}
