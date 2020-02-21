@@ -57,7 +57,7 @@
 </style>
 <body>
     <h1>Interactive Pie an Bar</h1>
-    <h5>Visualisation des personnes possédants une deuxième voiture</h5>
+    <h5>Visualisation des personnes possédants une deuxième voiture en fnction de leures situation familiale et leures âges</h5>
     <hr />
     <div id='dashboard'>
     </div>
@@ -277,7 +277,7 @@
             return cp;
         }
 
-        values = d3.csv("../Data/Clients.csv", function (data) {
+        d3.csv("../Data/Clients.csv", function (data) {
             var freqData = [
                 { State: '18-29 ans', freq: { HommeEnCouple: stat("En Couple", 18, 29, 'M', data), FemmeEnCouple: stat("En Couple", 18, 29, 'F', data), HommeMarie: stat("Marie(e)", 18, 29, 'M', data), FemmeMariee: stat("Marie(e)", 18, 29, 'F', data) } },
                 { State: '30-39 ans', freq: { HommeEnCouple: stat("En Couple", 30, 39, 'M', data), FemmeEnCouple: stat("En Couple", 30, 39, 'F', data), HommeMarie: stat("Marie(e)", 30, 39, 'M', data), FemmeMariee: stat("Marie(e)", 30, 39, 'F', data) } },
