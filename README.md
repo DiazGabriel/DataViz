@@ -1,5 +1,11 @@
 # DataViz
 ## Groupe TPT N°1 **RaspCar**
+### Projet réalisé par:
+- Inèse RAMOUL
+- Roukaya IBEN SALAH
+- Gabriel DIAZ
+- Mamadou Saliou BAH
+- Nader CHATTI
 
 ### Description
 Ce projet permet de visualiser des graphs construits a partir d'un flux de donnees.
