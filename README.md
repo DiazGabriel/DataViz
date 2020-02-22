@@ -1,7 +1,7 @@
 # DataViz
 ## Groupe TPT N°1 **RaspCar**
 ### Projet réalisé par:
-- Inèse RAMOUL
+- Inès RAMOUL
 - Roukaya IBEN SALAH
 - Gabriel DIAZ
 - Mamadou Saliou BAH
