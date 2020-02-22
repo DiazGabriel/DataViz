@@ -1,0 +1,40 @@
+body {
+  margin: 0px;
+  overflow: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+text {
+  font-family: sans-serif;
+}
+
+.tick text {
+  font-size: 1.2em;
+  fill: #807375;
+}
+
+.tick line {
+  stroke: #807375;
+}
+
+.axis-label {
+  fill: #525045;
+  font-size: 1.8em
+}
+
+#menus {
+  font-size: 1.5em;
+  font-family: arial;
+  text-align: center;
+}
+
+#menus select {
+  font-size: 1.2rem;
+}
+
+#mySVG {
+  text-align: center;
+}
