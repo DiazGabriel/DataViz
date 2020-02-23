@@ -1,4 +1,5 @@
 # Parallel Coordinates : ***Etude des potentiels acheteurs d'une seconde voiture***
+> Inspiré de https://bl.ocks.org/syntagmatic/05a5b0897a48890133beb59c815bd953
 
 ## 1. Nettoyage des données sur RStudio
 > Script:
